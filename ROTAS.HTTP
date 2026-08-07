@@ -1,0 +1,33 @@
+GET http://localhost:3007/
+
+###
+
+GET http://localhost:3007/filmes
+
+###
+
+POST http://localhost:3007/criar-filme
+Content-Type: application/json
+
+{
+"titulo": "Gente toiça",
+"genero": "Comedia",
+"duracao": 173,
+"classificacao": "12 anos"
+}
+
+###
+
+PUT http://localhost:3007/editar-filme/2
+Content-Type: application/json
+
+{
+"titulo": "O ataque do Tralalero",
+"genero": "Terror",
+"duracao": 200,
+"classificacao": "16 anos"
+}
+
+###
+
+DELETE http://localhost:3007/apagar-filme/3
