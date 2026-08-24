@@ -1,20 +1,12 @@
 import express from "express";
 import mysql2 from "mysql2";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Configuração para encontrar a pasta frontend
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Mostrar o frontend
-app.use(express.static(path.join(__dirname, "frontend")));
 
 // LISTAR FILMES
 app.get("/filmes", (request, response) => {
