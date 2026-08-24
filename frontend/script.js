@@ -1,6 +1,6 @@
 async function buscarFilmes() {
 
-    const resposta = await fetch("http://localhost:3007/filmes");
+    const resposta = await fetch("https://67filmes.vercel.app/filmes");
 
     const filmes = await resposta.json();
 
