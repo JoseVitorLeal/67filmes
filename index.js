@@ -1,15 +1,20 @@
 import express from "express";
 import mysql2 from "mysql2";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
-app.get("/", (request, response) => {
-    response.json({
-        message: "sim 67"
-    });
-});
+// Configuração para encontrar a pasta frontend
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Mostrar o frontend
+app.use(express.static(path.join(__dirname, "frontend")));
 
 // LISTAR FILMES
 app.get("/filmes", (request, response) => {
@@ -17,6 +22,7 @@ app.get("/filmes", (request, response) => {
     const selectCommand = "SELECT * FROM filmes_JoseLealCamilySousa";
 
     sql.query(selectCommand, (error, result) => {
+
         if (error) {
             console.log(error);
             return;
@@ -24,9 +30,7 @@ app.get("/filmes", (request, response) => {
 
         response.json(result);
     });
-
 });
-
 
 // CADASTRAR FILME
 app.post("/criar-filme", (request, response) => {
@@ -50,14 +54,11 @@ app.post("/criar-filme", (request, response) => {
             }
 
             response.status(201).json({
-                message: "Filme cadastrado com sucesso"
+                message: "Filme cadastrado com sucesso!"
             });
-
         }
     );
-
 });
-
 
 // EDITAR FILME
 app.put("/editar-filme/:id", (request, response) => {
@@ -82,21 +83,19 @@ app.put("/editar-filme/:id", (request, response) => {
             }
 
             response.json({
-                message: "Filme atualizado com sucesso"
+                message: "Filme atualizado com sucesso!"
             });
-
         }
     );
-
 });
-
 
 // APAGAR FILME
 app.delete("/apagar-filme/:id", (request, response) => {
 
     const { id } = request.params;
 
-    const deleteCommand = "DELETE FROM filmes_JoseLealCamilySousa WHERE id=?";
+    const deleteCommand =
+        "DELETE FROM filmes_JoseLealCamilySousa WHERE id=?";
 
     sql.query(deleteCommand, [id], (error) => {
 
@@ -106,18 +105,14 @@ app.delete("/apagar-filme/:id", (request, response) => {
         }
 
         response.json({
-            message: "Filme apagado com sucesso"
+            message: "Filme apagado com sucesso!"
         });
-
     });
-
 });
-
 
 app.listen(3007, () => {
-    console.log("Servidor rodando perigoso");
+    console.log("Servidor rodando na porta 3007");
 });
-
 
 const sql = mysql2.createPool({
     host: "benserverplex.ddns.net",
