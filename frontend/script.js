@@ -1,4 +1,4 @@
-const API_URL = "https://67filmes.vercel.app";
+const API_URL = "https://67filmes-74a1.vercel.app";
 
 const listaFilmes = document.querySelector("#listaFilmes");
 const mensagemVazia = document.querySelector("#mensagemVazia");
