@@ -3,14 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Filmes</title>
 </head>
 <body>
 
-    <h1>Lista de Filmes</h1>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <h1>🎬 Catálogo de Filmes</h1>
+            <button id="btnNovoFilme" class="btn btn-primario">+ Novo filme</button>
+        </div>
+    </header>
 
-    <section class="filmes"></section>
+    <main>
+        <section class="filmes" id="listaFilmes"></section>
+        <p class="vazio" id="mensagemVazia" hidden>Nenhum filme cadastrado ainda. Clique em “+ Novo filme” para começar.</p>
+    </main>
+
+    <!-- Modal de cadastro/edição -->
+    <div class="overlay" id="overlay" hidden>
+        <div class="modal">
+            <div class="modal-cabecalho">
+                <h2 id="tituloModal">Novo filme</h2>
+                <button class="btn-fechar" id="btnFechar" aria-label="Fechar">&times;</button>
+            </div>
+
+            <form id="formFilme">
+                <input type="hidden" id="filmeId">
+
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" required placeholder="Ex: Interestelar">
+
+                <label for="genero">Gênero</label>
+                <input type="text" id="genero" required placeholder="Ex: Ficção científica">
+
+                <div class="linha">
+                    <div class="campo">
+                        <label for="duracao">Duração (min)</label>
+                        <input type="number" id="duracao" required min="1" placeholder="Ex: 169">
+                    </div>
+                    <div class="campo">
+                        <label for="classificacao">Classificação</label>
+                        <input type="text" id="classificacao" required placeholder="Ex: 12 anos">
+                    </div>
+                </div>
+
+                <div class="modal-acoes">
+                    <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primario" id="btnSalvar">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast de feedback -->
+    <div id="toast" class="toast" hidden></div>
 
     <script src="script.js"></script>
 

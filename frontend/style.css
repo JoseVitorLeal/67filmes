@@ -1,20 +1,328 @@
+:root {
+    --cor-fundo: #0f1117;
+    --cor-superficie: #1a1d29;
+    --cor-superficie-alt: #22273a;
+    --cor-primaria: #7c5cff;
+    --cor-primaria-hover: #6a48ff;
+    --cor-texto: #f2f2f7;
+    --cor-texto-suave: #a4a8bd;
+    --cor-borda: #2c2f42;
+    --cor-perigo: #ff5c72;
+    --cor-perigo-hover: #ff3f59;
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --raio: 14px;
+}
+
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
 body {
-    margin: 30px;
+    margin: 0;
+    background: radial-gradient(circle at top, #1b1e2c, var(--cor-fundo) 60%);
+    color: var(--cor-texto);
+    min-height: 100vh;
 }
 
-.filmes {
+/* ---------- Topo ---------- */
+.topo {
+    padding: 32px 6vw 20px;
+}
+
+.topo-conteudo {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px;
+}
+
+.topo h1 {
+    margin: 0;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+main {
+    padding: 10px 6vw 60px;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primario {
+    background: linear-gradient(135deg, var(--cor-primaria), #5a3dff);
+    color: white;
+    box-shadow: 0 6px 16px rgba(124, 92, 255, 0.35);
+}
+
+.btn-primario:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.btn-secundario {
+    background: transparent;
+    color: var(--cor-texto-suave);
+    border: 1px solid var(--cor-borda);
+}
+
+.btn-secundario:hover {
+    color: var(--cor-texto);
+    border-color: var(--cor-texto-suave);
+}
+
+/* ---------- Grid de filmes ---------- */
+.filmes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
 }
 
 .filme {
-    width: 300px;
-    min-height: 180px;
-    border: 1px solid black;
+    background: linear-gradient(160deg, var(--cor-superficie), var(--cor-superficie-alt));
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    padding: 22px;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.filme::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cor-primaria), #ff5c9f);
+}
+
+.filme:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.filme h2 {
+    margin: 4px 0 2px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.filme p {
+    margin: 0;
+    color: var(--cor-texto-suave);
+    font-size: 0.92rem;
+}
+
+.filme p strong {
+    color: var(--cor-texto);
+}
+
+.badge {
+    display: inline-block;
+    align-self: flex-start;
+    background: rgba(124, 92, 255, 0.15);
+    color: #b7a5ff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 4px;
+}
+
+.filme-acoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.btn-icone {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-icone:active {
+    transform: scale(0.96);
+}
+
+.btn-editar {
+    background: rgba(124, 92, 255, 0.15);
+    color: #b7a5ff;
+}
+
+.btn-editar:hover {
+    background: rgba(124, 92, 255, 0.28);
+}
+
+.btn-apagar {
+    background: rgba(255, 92, 114, 0.15);
+    color: #ff96a4;
+}
+
+.btn-apagar:hover {
+    background: rgba(255, 92, 114, 0.28);
+}
+
+.vazio {
+    text-align: center;
+    color: var(--cor-texto-suave);
+    margin-top: 60px;
+    font-size: 1rem;
+}
+
+/* ---------- Modal ---------- */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 7, 12, 0.65);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
     padding: 20px;
+}
+
+.overlay[hidden] {
+    display: none;
+}
+
+.overlay:not([hidden]) {
+    display: flex;
+}
+
+.modal {
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    width: 100%;
+    max-width: 440px;
+    padding: 26px 26px 22px;
+    box-shadow: var(--sombra);
+    animation: entrar 0.18s ease;
+}
+
+@keyframes entrar {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.modal-cabecalho h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.btn-fechar {
+    background: none;
+    border: none;
+    color: var(--cor-texto-suave);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-fechar:hover {
+    color: var(--cor-texto);
+}
+
+#formFilme label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--cor-texto-suave);
+    margin: 14px 0 6px;
+}
+
+#formFilme input {
+    width: 100%;
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--cor-texto);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+#formFilme input:focus {
+    border-color: var(--cor-primaria);
+}
+
+.linha {
+    display: flex;
+    gap: 14px;
+}
+
+.linha .campo {
+    flex: 1;
+}
+
+.modal-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cor-superficie-alt);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+    font-size: 0.9rem;
+    z-index: 200;
+    animation: subir 0.2s ease;
+}
+
+.toast.erro {
+    border-color: var(--cor-perigo);
+    color: #ffc4cd;
+}
+
+@keyframes subir {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (max-width: 480px) {
+    .linha {
+        flex-direction: column;
+        gap: 0;
+    }
 }
